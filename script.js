@@ -1,46 +1,48 @@
-'use strict';
+"use strict";
 let answer;
-let userAnswer1;
-let userAnswer2;
+let userInput;
+let userAnswer;
+let attemps;
+let game;
 
-function guessTheNumber() {
-    answer = +parseInt(Math.random() * 100);
-    userAnswer1 = +prompt("Player 1: guess number from 0 to 100. For exit press 0.");
-    if (userAnswer1 == answer) {
-        alert("Congratulations!");
-    } else if (userAnswer1 == 0) {
-        alert("Game over");
-        break;
-    } else {
-        alert("Bad news. Player 2, your turn!");
-    }
-    userAnswer2 = +prompt("Player 2: guess number from 0 to 100.For exit press 0.");
-    if (userAnswer2 == answer) {
-        alert("Great!");
-    } else if (userAnswer2 == 0) {
-        alert("Game over");
-        break;
-    } else {
-        alert("Sorry! Player 1, try again!");
-    }
-    userAnswer1 = +prompt("Player 1: you have one more chance! For exit press 0.");
-    if (userAnswer1 == answer) {
-        alert("Congratulations!");
-    } else if (userAnswer1 == 0) {
-        alert("Game over");
-        break;
-    } else {
-        alert("You are loser! Player 2, your turn!");
-    }
-    userAnswer2 = +prompt("Player 2: one more attemp!For exit press 0.");
-    if (userAnswer2 == answer) {
-        alert("Congratulations!");
-    } else if (userAnswer2 == 0) {
-        alert("Game over");
-        break;
-    } else {
-        alert("You are loser!");
-    }
-    alert("Desired number" + answer);
-    return guessTheNumber();
+function interview() {
+    userInput = prompt("Угадай число от 1 до 100. Для отмены введите 0(ноль).");
+    userAnswer = userInput;
+    return userAnswer;
 }
+
+function getRandomInt(max) {
+    answer = Math.floor(Math.random() * max);
+    console.log(answer);
+    return answer;
+}
+
+function isNumber(num) {
+    return !isNaN(parseFloat(num)) && isFinite(num);
+}
+
+function guessTheNumber(attemp) {
+    interview();
+    if (userAnswer !== answer || attemp > 0 & attemp <= 10) {
+        if (userAnswer == answer || attemp === 0) {
+            alert("Игра завершена!");
+        } else if (!isNumber(answer)) {
+            alert("Введите число!");
+        } else if (userAnswer > answer && attemp > 0) {
+            alert("Загаданное число больше");
+            attemp--;
+        } else if (userAnswer < answer && attemp > 0) {
+            alert("Загаданное число меньше");
+            attemp--;
+        }
+    }
+    return guessTheNumber(attemp);
+}
+
+attemp = 10;
+answer = getRandomInt(100);
+game = guessTheNumber(attemp);
+
+console.log(answer);
+console.log(attemp);
+console.log(game);
