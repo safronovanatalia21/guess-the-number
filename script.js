@@ -1,8 +1,7 @@
-"use strict";
 let answer;
 let userInput;
 let userAnswer;
-let attemps;
+let attempt;
 let game;
 
 function interview() {
@@ -21,28 +20,29 @@ function isNumber(num) {
     return !isNaN(parseFloat(num)) && isFinite(num);
 }
 
-function guessTheNumber(attemp) {
+function guessTheNumber(attempt) {
     interview();
-    if (userAnswer !== answer || attemp > 0 & attemp <= 10) {
-        if (userAnswer == answer || attemp === 0) {
+    if (userAnswer !== answer || (attempt > 0) & (attempt <= 10)) {
+        if (userAnswer == answer || attempt === 0) {
             alert("Игра завершена!");
         } else if (!isNumber(answer)) {
             alert("Введите число!");
-        } else if (userAnswer > answer && attemp > 0) {
+        } else if (userAnswer > answer && attempt > 0) {
             alert("Загаданное число больше");
-            attemp--;
-        } else if (userAnswer < answer && attemp > 0) {
+            attempt--;
+        } else if (userAnswer < answer && attempt > 0) {
             alert("Загаданное число меньше");
-            attemp--;
+            attempt--;
         }
     }
-    return guessTheNumber(attemp);
+    return guessTheNumber(attempt);
 }
 
-attemp = 10;
+attempt = 10;
 answer = getRandomInt(100);
-game = guessTheNumber(attemp);
+game = guessTheNumber(attempt);
 
 console.log(answer);
-console.log(attemp);
+console.log(attempt);
 console.log(game);
+console.log("check console");
