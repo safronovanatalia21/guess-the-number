@@ -1,48 +1,38 @@
-let answer;
-let userInput;
-let userAnswer;
-let attempt;
-let game;
+let userNum;
+let attempt = 10;
+let randomNum = parseInt(Math.random() * 100);
 
-function interview() {
-    userInput = prompt("Угадай число от 1 до 100. Для отмены введите 0(ноль).");
-    userAnswer = userInput;
-    return userAnswer;
-}
-
-function getRandomInt(max) {
-    answer = Math.floor(Math.random() * max);
-    console.log(answer);
-    return answer;
-}
-
-function isNumber(num) {
+function isNum(num) {
     return !isNaN(parseFloat(num)) && isFinite(num);
 }
 
-function guessTheNumber(attempt) {
-    interview();
-    if (userAnswer !== answer || (attempt > 0) & (attempt <= 10)) {
-        if (userAnswer == answer || attempt === 0) {
-            alert("Игра завершена!");
-        } else if (!isNumber(answer)) {
-            alert("Введите число!");
-        } else if (userAnswer > answer && attempt > 0) {
-            alert("Загаданное число больше");
-            attempt--;
-        } else if (userAnswer < answer && attempt > 0) {
-            alert("Загаданное число меньше");
-            attempt--;
+function guessNumber() {
+    userNum = prompt("Угадай число от 1 до 100");
+    if (isNum(userNum)) {
+        userNum = +userNum;
+
+        if (attempt > 0) {
+            if (userNum > randomNum) {
+                attempt--;
+                console.log(attempt);
+                alert("Загаданное число больше");
+            } else if (userNum < randomNum) {
+                attempt--;
+                console.log(attempt);
+                alert("Загаданное число меньше");
+            } else if (userNum == "Отмена") {
+                alert("Игра окончена");
+            } else if (userNum === randomNum) {
+                alert("Поздравляю, Вы угадали!!!");
+                return userNum;
+            }
+        } else {
+            alert("Попытки закончились, хотите сыграть еще?");
         }
+    } else {
+        alert("Введи число!");
     }
-    return guessTheNumber(attempt);
+
+    return guessNumber();
 }
-
-attempt = 10;
-answer = getRandomInt(100);
-game = guessTheNumber(attempt);
-
-console.log(answer);
-console.log(attempt);
-console.log(game);
-console.log("check console");
+console.log(guessNumber());
